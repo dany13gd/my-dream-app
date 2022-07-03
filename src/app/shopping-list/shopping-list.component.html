@@ -8,7 +8,15 @@
           <a class="list-group-item"
           style="cursor: pointer"
           *ngFor="let ingredient of ingredients" >
-        {{ingredient.name}}({{ingredient.amount}})</a>
+          <div class="row">
+            <div class="col-sm">
+              {{ingredient.name}}
+            </div>
+            <div class="col-sm">
+              ({{ingredient.amount}})
+            </div>
+          </div>
+        </a>
         </ul>
     </div>
 </div>
