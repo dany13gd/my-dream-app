@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Ingredient } from '../shared/ingredient.model';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { IngredientsService } from '../core/data-services/ingredients.service';
+import { Ingredient } from '../shared/ingredient.model';
 
 @Component({
   selector: 'app-shopping-list',
@@ -8,26 +10,19 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit {
-  ingredients: any = [];
-  list: any = [];
+  ingredients: Ingredient[];
+  private url = environment.apiUrl;
 
-  constructor(private http: HttpClient) {
+  constructor(private ingredientsServices: IngredientsService, private http: HttpClient) {
 
   }
 
   ngOnInit(): void {
-    var link = "http://localhost:1337/api/ingredients?sort=amount";
-
-    this.http.get(link).subscribe(res => {
-      this.list = res;
-      this.ingredients = this.list.data;
-      console.log(this.ingredients);
-
-    })
+    this.ingredientsServices.getIngredients().subscribe(res => this.ingredients = res.data)
   }
 
   onIngredientAdded(ingredient: Ingredient) {
-    this.ingredients.push(ingredient);
+    this.http.post(`${this.url}/ingredients`, ingredient)
   }
 
 }

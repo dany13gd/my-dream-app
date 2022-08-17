@@ -10,10 +10,10 @@
           *ngFor="let ingredient of ingredients" >
           <div class="row">
             <div class="col-sm">
-              {{ingredient.name}}
+              {{ingredient.attributes.name}}
             </div>
             <div class="col-sm">
-              ({{ingredient.amount}})
+              ({{ingredient.attributes.amount}})
             </div>
           </div>
         </a>
